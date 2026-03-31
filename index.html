@@ -33,17 +33,28 @@
                     </a>
                 </div>
 
-                <button class="md:hidden p-2 text-slate-400">
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white focus:outline-none transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
                 </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-slate-900/90 backdrop-blur-2xl animate-in slide-in-from-top duration-300">
+            <div class="px-6 py-8 flex flex-col gap-6 text-center">
+                <a href="index.html" class="text-blue-400 font-black text-xl tracking-widest uppercase">Home</a>
+                <a href="#" class="text-slate-400 font-bold hover:text-white transition text-lg uppercase tracking-widest">Inventory</a>
+                <a href="#" class="text-slate-400 font-bold hover:text-white transition text-lg uppercase tracking-widest">Contact</a>
+                <div class="h-[1px] bg-white/5 my-2"></div>
+                <a href="admin.html" class="bg-blue-600 text-white py-4 rounded-2xl font-black tracking-widest shadow-lg shadow-blue-600/20 active:scale-95 transition">
+                    GO TO ADMIN PANEL
+                </a>
             </div>
         </div>
     </nav>
 
     <main class="max-w-6xl mx-auto px-4 md:px-6 mt-10">
-        
         <section class="relative group">
             <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-[2rem] blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
             <div class="relative bg-slate-900/50 border border-white/5 p-8 rounded-[2rem] mb-12 shadow-2xl backdrop-blur-md">
@@ -118,6 +129,31 @@
             </div>
         </div>
     </main>
+
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            
+            // สลับไอคอนระหว่าง 3 ขีด (Hamburger) กับ กากบาท (X)
+            if (isHidden) {
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16m-7 6h7');
+            } else {
+                menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+            }
+        });
+
+        // ปิดเมนูอัตโนมัติเมื่อมีการคลิกลิงก์
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16m-7 6h7');
+            });
+        });
+    </script>
 
     <script type="module" src="./app.js"></script>
 </body>
